@@ -6,16 +6,22 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.example.commands.CommandManager;
 import org.example.events.EventManager;
+import org.example.log.LogConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App {
+
+  private static final Logger log = LoggerFactory.getLogger(App.class);
   public static void main(String[] args) throws Exception {
+    LogConfig.init();
     Dotenv dotenv = Dotenv.load();
     String token = dotenv.get("DISCORD_TOKEN");
 
     org.example.database.MongoManager.connect();
 
     if (token == null) {
-      System.err.println("DISCORD_TOKEN environment variable not set!");
+      log.error("DISCORD_TOKEN environment variable not set!");
       System.exit(1);
     }
 
@@ -26,7 +32,6 @@ public class App {
     commandManager.registerSlashCommands(jda);
 
     jda.addEventListener(eventManager);
-
-    System.out.println("Bot started!");
+    log.info("Bot started!");
   }
 }
