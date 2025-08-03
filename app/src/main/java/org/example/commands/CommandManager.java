@@ -76,7 +76,7 @@ public class CommandManager {
   }
 
   private boolean hasAllPermissions(Member member, Permission[] perms) {
-    if (member == null) return true;
+    if (member == null) return false;
     for (var perm : perms) {
       if (!member.hasPermission(perm)) {
         return true;
