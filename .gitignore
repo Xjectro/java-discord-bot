@@ -19,8 +19,8 @@ gradle-app.setting
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-
+.env
 .idea
 logs/
 logs/error.log
-.env
+app/src/main/resources/.env
