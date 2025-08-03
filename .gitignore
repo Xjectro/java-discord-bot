@@ -23,4 +23,4 @@ gradle-app.setting
 .idea
 logs/
 logs/error.log
-.idea
+.env
