@@ -38,7 +38,7 @@ public class CommandManager {
     if (command != null && member != null && channel != null) {
       if (event.isFromGuild()) {
         Permission[] perms = command.getRequiredPermissions();
-        if (perms.length > 0 && (member == null || !hasAllPermissions(member, perms))) {
+        if (perms.length > 0 && (member == null || hasAllPermissions(member, perms))) {
           channel.sendMessage("You do not have permission to use this command.").queue();
           return;
         }
@@ -62,7 +62,7 @@ public class CommandManager {
     if (command != null && member != null && channel != null) {
       if (event.isFromGuild()) {
         Permission[] perms = command.getRequiredPermissions();
-        if (perms.length > 0 && (member == null || !hasAllPermissions(member, perms))) {
+        if (perms.length > 0 && (member == null || hasAllPermissions(member, perms))) {
           event.reply("You do not have permission to use this command.").setEphemeral(true).queue();
           return;
         }
@@ -76,13 +76,13 @@ public class CommandManager {
   }
 
   private boolean hasAllPermissions(Member member, Permission[] perms) {
-    if (member == null) return false;
+    if (member == null) return true;
     for (var perm : perms) {
       if (!member.hasPermission(perm)) {
-        return false;
+        return true;
       }
     }
-    return true;
+    return false;
   }
 
   public void registerSlashCommands(JDA jda) {
